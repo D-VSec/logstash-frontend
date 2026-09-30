@@ -496,6 +496,16 @@ main {
   font-size: 13px;
   letter-spacing: 0;
 }
+.feature-card strong {
+  display: block;
+  font: 500 17px "Space Grotesk";
+  color: var(--cream);
+  letter-spacing: -0.5px;
+}
+.feature-card .metric-muted {
+  line-height: 1.65;
+  max-width: 220px;
+}
 .workspace-section {
   padding: 94px 5.6vw 105px;
 }

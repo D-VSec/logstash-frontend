@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 
 type StorageMode = "local" | "r2";
+const backendRepositoryUrl = "https://github.com/D-VSec/logstash-backend";
 
 const events = [
   [
@@ -17,16 +18,6 @@ const events = [
 
 function App() {
   const [storageMode, setStorageMode] = useState<StorageMode>("r2");
-  const [isDeploying, setIsDeploying] = useState(false);
-  const [deployed, setDeployed] = useState(false);
-
-  const handleDeploy = () => {
-    setIsDeploying(true);
-    window.setTimeout(() => {
-      setIsDeploying(false);
-      setDeployed(true);
-    }, 900);
-  };
 
   return (
     <div className="app-shell">
@@ -59,13 +50,6 @@ function App() {
           >
             ⌘
           </button>
-          <button
-            className="avatar"
-            type="button"
-            aria-label="Open account menu"
-          >
-            AM
-          </button>
         </div>
       </header>
 
@@ -85,19 +69,14 @@ function App() {
               capture everything, and archive with confidence.
             </p>
             <div className="hero-actions">
-              <button
+              <a
                 className="primary-button"
-                type="button"
-                onClick={handleDeploy}
-                disabled={isDeploying}
+                href={backendRepositoryUrl}
+                target="_blank"
+                rel="noreferrer"
               >
-                {isDeploying
-                  ? "Deploying..."
-                  : deployed
-                    ? "Deployment ready"
-                    : "Deploy a collector"}{" "}
-                <span>↗</span>
-              </button>
+                Deploy a collector <span>↗</span>
+              </a>
               <a className="text-button" href="#pipeline">
                 Explore the pipeline <span>↓</span>
               </a>
@@ -173,28 +152,38 @@ function App() {
           </div>
         </section>
 
-        <section className="metrics-strip" aria-label="Pipeline metrics">
-          <div>
-            <span className="metric-label">UPTIME</span>
-            <strong>99.98%</strong>
-            <span className="metric-good">+0.04%</span>
+        <section
+          className="metrics-strip feature-strip"
+          aria-label="Logstash features"
+        >
+          <div className="feature-card">
+            <span className="metric-label">01 / DEPLOYMENT</span>
+            <strong>SSH VM setup</strong>
+            <span className="metric-muted">
+              Password or private-key authentication with idempotent installs.
+            </span>
           </div>
-          <div>
-            <span className="metric-label">EVENTS PROCESSED</span>
-            <strong>8.4M</strong>
-            <span className="metric-muted">this month</span>
+          <div className="feature-card">
+            <span className="metric-label">02 / COLLECTION</span>
+            <strong>Resilient Fluent Bit</strong>
+            <span className="metric-muted">
+              Filesystem buffering, retry behavior, and common Ubuntu logs.
+            </span>
           </div>
-          <div>
-            <span className="metric-label">ACTIVE NODES</span>
-            <strong>12</strong>
-            <span className="metric-good">all healthy</span>
+          <div className="feature-card">
+            <span className="metric-label">03 / COMPRESSION</span>
+            <strong>Atomic tar.gz archives</strong>
+            <span className="metric-muted">
+              Rotated files become timestamped archives without losing source
+              data.
+            </span>
           </div>
-          <div>
-            <span className="metric-label">ARCHIVE LATENCY</span>
-            <strong>
-              420<span className="unit">ms</span>
-            </strong>
-            <span className="metric-good">−18ms</span>
+          <div className="feature-card">
+            <span className="metric-label">04 / STORAGE</span>
+            <strong>Local or Cloudflare R2</strong>
+            <span className="metric-muted">
+              Keep archives on disk or upload them through an S3-compatible API.
+            </span>
           </div>
         </section>
 
@@ -348,14 +337,14 @@ function App() {
               Start with one VM. Scale to your whole fleet when the signal is
               clear.
             </p>
-            <button
+            <a
               className="primary-button"
-              type="button"
-              onClick={handleDeploy}
+              href={backendRepositoryUrl}
+              target="_blank"
+              rel="noreferrer"
             >
-              {deployed ? "Deployment ready" : "Start your first deployment"}{" "}
-              <span>↗</span>
-            </button>
+              Start your first deployment <span>↗</span>
+            </a>
           </div>
         </section>
       </main>
@@ -373,7 +362,6 @@ function App() {
         <span>Built for the moments after “what happened?”</span>
         <div>
           <a href="#pipeline">Documentation</a>
-          <a href="#archives">Status</a>
           <a href="#overview">GitHub ↗</a>
         </div>
       </footer>
